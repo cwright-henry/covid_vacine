@@ -1,29 +1,65 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import VacineList from '@/views/vacines/VacineList'
+
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+	{
+		path: '',
+		redirect: '/vaccines',
+	},
+	{
+		path: '/vaccines',
+		name: 'vacinelist',
+		component: VacineList,
+		meta: {
+			yPos: 0
+		}
+	},
+	{
+		path: '*',
+		redirect: '/'
+	}
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+	mode: 'history',
+	base: process.env.BASE_URL,
+
+	/**
+	 * Browser based navigation - does not take care of
+	 * programmatic navigation
+	 */
+	scrollBehavior(to, from, savedPosition) {
+		let position = { x: 0, y: 0 };
+		if (savedPosition) {
+			position = savedPosition
+		}
+
+		if (to.name === 'vacinelist') {
+			position = { x: 0, y: to.meta.yPos }
+		}
+		else {
+			return position;
+		}
+
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(position)
+			}, 400)
+		})
+	},
+
+	routes
 })
+
+router.afterEach((to) => {
+	window.gtag('config', window.GA_TRACKING_ID, {
+		page_path: to.fullPath,
+		page_title: to.name
+	});
+});
 
 export default router
