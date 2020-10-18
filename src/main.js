@@ -4,12 +4,20 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import 'animate.css/animate.css'
-import { GA, numberFormat } from "@/utils";
+import { GA, numberFormat, dateLongFormat, dateShortFormat } from "@/utils";
 
 Vue.config.productionTip = false;
 
 Vue.filter('number', function (value, precision) {
 	return numberFormat(value, precision);
+});
+
+Vue.filter('dateLong', function (value) {
+	return dateLongFormat(value);
+});
+
+Vue.filter('dateShort', function (value) {
+	return dateShortFormat(value);
 });
 
 Vue.config.errorHandler = function (err, vm, info) {

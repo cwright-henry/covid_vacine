@@ -94,6 +94,9 @@
 								}}</span>
 							</v-tooltip>
 						</div>
+						<div class="covid-vacine-list--progress__updated">
+							Last Updated {{ vacine.updated | dateShort }}
+						</div>
 					</div>
 				</li>
 			</transition-group>
@@ -204,6 +207,10 @@ section {
 				display: flex;
 				justify-content: space-between;
 				align-items: flex-end;
+				.covid-vacine-list--progress__updated {
+					font-size: 11px;
+					color: #e0e0e0;
+				}
 			}
 			.covid-vacine-list--header {
 				display: flex;

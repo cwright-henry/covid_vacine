@@ -13,7 +13,7 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setVaccines(state, vaccines) {
-			state.vaccines = vaccines.sort(objectSorter('stage', 'asc', 'vaccine', 'desc'));
+			state.vaccines = vaccines.sort(objectSorter('stage', 'asc', 'updated', 'desc'));
 			state.stages = vaccines.reduce((acc, { stage }) => {
 				acc[stage] = (acc[stage] || 0) + 1;
 				return acc;
@@ -27,7 +27,7 @@ export default new Vuex.Store({
 				for (let splits1 of split_1) {
 					const split_2 = splits1.split(';');
 					for (let splits2 of split_2) {
-						splits2 = splits2.replaceAll("\"", "").trim();
+						splits2 = splits2.replace(/"/g, "").trim();
 						acc[splits2] = (acc[splits2] || 0) + 1;
 					}
 				}

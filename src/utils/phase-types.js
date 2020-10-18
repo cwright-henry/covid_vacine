@@ -8,7 +8,7 @@ export const phaseTypes = {
 		description: 'Clinical trials look at the safety of a potential treatment or vaccine in a small group (usually less than 100) of healthy volunteers.'
 	},
 	'stage-1half2': {
-		name: 'Phase 1/2',
+		name: 'Phase I/II',
 		description: 'Combined phase I and Phases II in order to substantially move up the timescale.'
 	},
 	'stage-2': {
@@ -16,7 +16,7 @@ export const phaseTypes = {
 		description: 'Clinical trials test a potential treatment or vaccine on a large (often up to several hundred) group of people who will use the drug (patients) or get vaccinated (healthy volunteers), looking at whether the treatment or vaccine is safe and whether it works effectively.'
 	},
 	'stage-2half3': {
-		name: 'Phase 2/3',
+		name: 'Phase II/III',
 		description: 'Combined phase II and Phases III in order to substantially move up the timescale.'
 	},
 	'stage-3': {

@@ -6,6 +6,7 @@
 					>mdi-needle</v-icon
 				>
 				Covid 19 Vaccine Watch
+				<span>...more than one vaccine will be required!</span>
 				<img src="@/assets/covid.png" height="24" width="24" />
 			</h1>
 		</div>
@@ -27,12 +28,20 @@ export default {};
 			margin: 4px 0;
 			position: relative;
 			display: flex;
+			align-items: baseline;
 
 			img {
 				position: absolute;
 				right: 4px;
 				top: 8px;
 				animation: spin 24s linear infinite;
+			}
+
+			span {
+				font-size: 16px;
+				padding: 0 0 0 16px;
+				font-style: italic;
+				font-weight: 300;
 			}
 		}
 	}

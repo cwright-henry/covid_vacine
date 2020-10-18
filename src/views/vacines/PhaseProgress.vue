@@ -4,8 +4,8 @@
 		<span :class="getPhase2()"></span>
 		<span :class="getPhase3()"></span>
 		<span :class="getPhase4()"></span>
-		<span></span>
-		<span></span>
+		<span :class="getPhase5()"></span>
+		<span :class="getPhase6()"></span>
 	</div>
 </template>
 
@@ -43,12 +43,21 @@ export default {
 	},
 	methods: {
 		getPhase1() {
-			if (this.level >= 1) {
+			if (this.level === 1) {
+				return "partial";
+			}
+			else if (this.level > 1) {
 				return "complete";
 			}
 		},
 		getPhase2() {
-			if (this.level >= 2) {
+			if (this.level === 2) {
+				return "partial";
+			}
+			else if (this.level === 2.5) {
+				return "partial";
+			}
+			else if (this.level > 2.5) {
 				return "complete";
 			}
 		},
@@ -56,7 +65,13 @@ export default {
 			if (this.level === 2.5) {
 				return "partial";
 			}
-			if (this.level >= 3) {
+			if (this.level === 3.5) {
+				return "partial";
+			}
+			else if (this.level === 3) {
+				return "partial";
+			}
+			else if (this.level > 3.5) {
 				return "complete";
 			}
 		},
@@ -64,7 +79,20 @@ export default {
 			if (this.level === 3.5) {
 				return "partial";
 			}
-			if (this.level >= 4) {
+			else if (this.level === 4) {
+				return "partial";
+			}
+			else if (this.level > 4) {
+				return "complete";
+			}
+		},
+		getPhase5() {
+			if (this.level >= 5) {
+				return "complete";
+			}
+		},
+		getPhase6() {
+			if (this.level >= 6) {
 				return "complete";
 			}
 		},
@@ -76,7 +104,7 @@ export default {
 .covid-vaccine--stages {
 	display: flex;
 	justify-content: space-evenly;
-	border: 1px solid #FFF176;
+	border: 1px solid #fff176;
 	border-radius: 4px;
 	height: 8px;
 	margin: 32px 0 8px 0;
@@ -89,7 +117,7 @@ export default {
 		font-size: 11px;
 		font-weight: 300;
 		&.complete {
-			background-color: #00E676;
+			background-color: #00e676;
 		}
 		&.partial {
 			background-color: #ffc107;
@@ -133,8 +161,8 @@ export default {
 			top: -8px;
 			left: 50%;
 			content: "";
-			border-right: 1px solid #FFF176;
-			height:8px;
+			border-right: 1px solid #fff176;
+			height: 8px;
 		}
 	}
 }
