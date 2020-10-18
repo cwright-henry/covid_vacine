@@ -80,7 +80,7 @@ export default {
 	border-radius: 4px;
 	height: 8px;
 	margin: 32px 0 8px 0;
-	width: 800px;
+	width: 750px;
 	span {
 		background-color: #ffffff;
 		display: inline-block;

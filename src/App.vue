@@ -29,7 +29,7 @@ import { load } from "@/services/Api";
 import EventBus from "@/events";
 import AppBar from "@/views/appbar/AppBar";
 
-const VACINE_API = "/covid/api/covid-vacine-data";
+const VACINE_API = "/covid/api/covid-vaccine-data";
 
 export default {
 	name: "App",

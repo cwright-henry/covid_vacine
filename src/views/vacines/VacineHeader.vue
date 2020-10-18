@@ -15,7 +15,7 @@
 				>
 					<template v-slot:item="data">
 						<div class="covid-vacine-header--list-item">
-							<v-icon size="16" color="#FFE082" class="mr-4"
+							<v-icon size="16" color="#FFE082" class="mr-3"
 								>mdi-account-cash</v-icon
 							>
 							<div>
@@ -35,7 +35,7 @@
 					</template>
 					<template v-slot:selection="data">
 						<div class="covid-vacine-header--list-item">
-							<v-icon size="16" color="#FFE082" class="mr-4"
+							<v-icon size="16" color="#FFE082" class="mr-3"
 								>mdi-account-cash</v-icon
 							>
 							<div>
@@ -196,7 +196,7 @@ export default {
 	.selected-text {
 		overflow: hidden !important;
 		white-space: nowrap;
-		width: 270px;
+		width: 280px;
 		text-overflow: ellipsis;
 	}
 }

@@ -5,8 +5,8 @@
 				:vaccines="filteredVaccines"
 				@onFilterChange="filterVaccines"
 			/>
-			<ul>
-				<li v-for="(vacine, index) of filteredVaccines" :key="index">
+			<transition-group tag="ul" @enter="enter" :css="false">
+				<li v-for="vacine of scrollableVaccines" :key="vacine.id">
 					<div class="covid-vacine-list--header">
 						<div class="covid-vacine-list--header__label">
 							<label>Vaccine</label>
@@ -16,7 +16,7 @@
 					</div>
 					<div class="covid-vacine-list--info">
 						<div class="covid-vacine-list--info__column">
-							<label>Manufactured By</label>
+							<label>Developed By</label>
 							<div>{{ vacine.developer }}</div>
 						</div>
 						<div class="covid-vacine-list--info__column ml-12">
@@ -96,8 +96,9 @@
 						</div>
 					</div>
 				</li>
-			</ul>
+			</transition-group>
 		</div>
+		<InfiniteScroll :hasNext="scrollable" @loadmore="loadMore" />
 	</section>
 </template>
 
@@ -106,11 +107,16 @@ import { mapState } from "vuex";
 import { vaccineTypes, phaseTypes } from "@/utils";
 import PhaseProgess from "./PhaseProgress";
 import VacineHeader from "./VacineHeader";
+import InfiniteScroll from "./InfiniteScroll";
+
+const SCROLL_AMOUNT = 10;
+const ANIMATION_IN = "animate__zoomIn";
 
 export default {
 	data() {
 		return {
 			filter: null,
+			scrollAmount: 0,
 		};
 	},
 	computed: {
@@ -123,10 +129,17 @@ export default {
 			}
 			return this.vaccines;
 		},
+		scrollableVaccines() {
+			return this.filteredVaccines.slice(0, this.scrollAmount);
+		},
+		scrollable() {
+			return this.scrollAmount < this.filteredVaccines.length;
+		},
 	},
 	components: {
 		PhaseProgess,
 		VacineHeader,
+		InfiniteScroll,
 	},
 	methods: {
 		getVaccineTypeName(type) {
@@ -143,6 +156,21 @@ export default {
 		},
 		filterVaccines(filter) {
 			this.filter = filter;
+			this.scrollAmount = 0;
+		},
+		loadMore() {
+			this.scrollAmount += SCROLL_AMOUNT;
+		},
+		enter(el, done) {
+			el.classList.add("animated", ANIMATION_IN);
+			el.style.animationDuration = "0.75s";
+
+			const handleAnimationEnd = () => {
+				el.classList.remove("animated", ANIMATION_IN);
+				el.removeEventListener("animationend", handleAnimationEnd);
+				done();
+			};
+			el.addEventListener("animationend", handleAnimationEnd);
 		},
 	},
 };
@@ -162,7 +190,7 @@ section {
 				font-size: 11px;
 				font-weight: 300;
 				text-transform: uppercase;
-				color: #e0e0e0;
+				color: #fff9c4;
 				margin: 0 0 2px;
 			}
 			&:first-child {
