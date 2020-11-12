@@ -1,10 +1,7 @@
 <template>
 	<section class="covid-vacine-page">
 		<div class="covid-vacine-sheet">
-			<VacineHeader
-				:vaccines="filteredVaccines"
-				@onFilterChange="filterVaccines"
-			/>
+			<VacineHeader :vaccines="filteredVaccines" />
 			<transition-group tag="ul" @enter="enter" :css="false">
 				<li v-for="vacine of scrollableVaccines" :key="vacine.id">
 					<div class="covid-vacine-list--header">
@@ -147,7 +144,7 @@ export default {
 	data() {
 		return {
 			filter: null,
-			scrollAmount: 0,
+			scrollAmount: SCROLL_AMOUNT,
 		};
 	},
 	computed: {
@@ -188,6 +185,7 @@ export default {
 		EventBus.$on("onFilterChange", (filter) => {
 			this.filter = filter;
 			document.documentElement.scrollTop = 0;
+			this.scrollAmount = SCROLL_AMOUNT;
 		});
 	},
 	components: {
@@ -207,10 +205,6 @@ export default {
 		},
 		getPhaseTypeDescription(type) {
 			return phaseTypes[type].description;
-		},
-		filterVaccines(filter) {
-			this.filter = filter;
-			this.scrollAmount = 0;
 		},
 		loadMore() {
 			this.scrollAmount += SCROLL_AMOUNT;

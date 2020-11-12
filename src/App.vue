@@ -69,7 +69,7 @@ export default {
 html,
 body {
 	min-height: 100%;
-	scroll-behavior: smooth;
+	scroll-behavior: auto;
 	background-color: #121212;
 }
 ul {
