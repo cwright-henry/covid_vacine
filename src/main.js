@@ -5,6 +5,40 @@ import store from './store'
 import vuetify from './plugins/vuetify';
 import 'animate.css/animate.css'
 import { GA, numberFormat, dateLongFormat, dateShortFormat } from "@/utils";
+import Highcharts from 'highcharts'
+import HighchartsVue from 'highcharts-vue'
+
+Highcharts.createElement('link', {
+	href: 'https://fonts.googleapis.com/css?family=Unica+One',
+	rel: 'stylesheet',
+	type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+
+Highcharts.setOptions({
+	global: {
+		useUTC: true
+	},
+	lang: {
+		thousandsSep: ',',
+		decimalPoint: '.'
+	}
+});
+
+Highcharts.getOptions().plotOptions.pie.colors = (function () {
+	var colors = [],
+		// base = Highcharts.getOptions().colors[2],
+		base = '#B0BEC5',
+		i
+
+	for (i = 0; i < 10; i++) {
+		// Start out with a darkened base color (negative brighten), and end
+		// up with a much brighter color
+		colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+	}
+	return colors;
+}());
+
+Vue.use(HighchartsVue)
 
 Vue.config.productionTip = false;
 

@@ -19,30 +19,6 @@
 							<label>Developed By</label>
 							<div>{{ vacine.developer }}</div>
 						</div>
-						<div class="covid-vacine-list--info__column ml-12">
-							<label>Next Steps</label>
-							<div>{{ vacine.nextSteps }}</div>
-						</div>
-						<div class="covid-vacine-list--info__column ml-12">
-							<label>Related To</label>
-							<div>
-								{{
-									vacine.relatedUse
-										? vacine.relatedUse
-										: "n/a"
-								}}
-							</div>
-						</div>
-						<div class="covid-vacine-list--info__column ml-12">
-							<label>Funded By</label>
-							<div>
-								{{
-									vacine.funder && vacine.funder !== "Unknown"
-										? vacine.funder
-										: "n/a"
-								}}
-							</div>
-						</div>
 					</div>
 					<div class="covid-vacine-list--progress">
 						<div>
@@ -73,7 +49,7 @@
 							<v-tooltip right max-width="500" open-delay="250">
 								<template v-slot:activator="{ on, attrs }">
 									<v-chip
-										color="#43A047"
+										color="#2E7D32"
 										v-bind="attrs"
 										v-on="on"
 										small
@@ -95,9 +71,60 @@
 							</v-tooltip>
 						</div>
 						<div class="covid-vacine-list--progress__updated">
-							Last Updated {{ vacine.updated | dateShort }}
+							<span class="mr-4"
+								>Last Updated
+								{{ vacine.updated | dateShort }}</span
+							>
+							<v-btn
+								text
+								small
+								color="#69F0AE"
+								@click="
+									vacine.showDetails = !vacine.showDetails
+								"
+								class="font-weight-light"
+							>
+								{{ vacine.showDetails ? "Less" : "More" }}
+								<v-icon color="#69F0AE">{{
+									vacine.showDetails
+										? "mdi-menu-up"
+										: "mdi-menu-down"
+								}}</v-icon>
+							</v-btn>
 						</div>
 					</div>
+					<v-slide-y-transition>
+						<div
+							class="covid-vacine-list--info-more"
+							v-show="vacine.showDetails"
+						>
+							<div class="covid-vacine-list--info__column">
+								<label>Next Steps</label>
+								<div>{{ vacine.nextSteps }}</div>
+							</div>
+							<div class="covid-vacine-list--info__column ml-12">
+								<label>Related To</label>
+								<div>
+									{{
+										vacine.relatedUse
+											? vacine.relatedUse
+											: "n/a"
+									}}
+								</div>
+							</div>
+							<div class="covid-vacine-list--info__column ml-12">
+								<label>Funded By</label>
+								<div>
+									{{
+										vacine.funder &&
+										vacine.funder !== "Unknown"
+											? vacine.funder
+											: "n/a"
+									}}
+								</div>
+							</div>
+						</div>
+					</v-slide-y-transition>
 				</li>
 			</transition-group>
 		</div>
@@ -107,6 +134,7 @@
 
 <script>
 import { mapState } from "vuex";
+import EventBus from "@/events";
 import { vaccineTypes, phaseTypes } from "@/utils";
 import PhaseProgess from "./PhaseProgress";
 import VacineHeader from "./VacineHeader";
@@ -127,7 +155,24 @@ export default {
 		filteredVaccines() {
 			if (this.filter) {
 				return this.vaccines.filter((item) => {
-					return item.entry.indexOf(this.filter) !== -1;
+					switch (this.filter.type) {
+						case "stage":
+							return this.filter.stages.some((filter) => {
+								return item.stage === filter;
+							});
+						case "type":
+							if (this.filter.vaccine === item.type) {
+								if (this.filter.stages) {
+									return this.filter.stages.some((filter) => {
+										return item.stage === filter;
+									});
+								}
+								return true;
+							}
+							return false;
+						case "fundedBy":
+							return item.entry.indexOf(this.filter.name) !== -1;
+					}
 				});
 			}
 			return this.vaccines;
@@ -138,6 +183,12 @@ export default {
 		scrollable() {
 			return this.scrollAmount < this.filteredVaccines.length;
 		},
+	},
+	mounted() {
+		EventBus.$on("onFilterChange", (filter) => {
+			this.filter = filter;
+			document.documentElement.scrollTop = 0;
+		});
 	},
 	components: {
 		PhaseProgess,
@@ -206,10 +257,12 @@ section {
 			.covid-vacine-list--progress {
 				display: flex;
 				justify-content: space-between;
-				align-items: flex-end;
+				align-items: baseline;
 				.covid-vacine-list--progress__updated {
 					font-size: 11px;
 					color: #e0e0e0;
+					display: flex;
+					align-items: baseline;
 				}
 			}
 			.covid-vacine-list--header {
@@ -230,13 +283,26 @@ section {
 			}
 			.covid-vacine-list--info {
 				display: flex;
-				justify-content: space-between;
+				justify-content: flex-start;
 				font-size: 14px;
 				margin: 0 0 24px;
 				.covid-vacine-list--info__column {
 					display: flex;
 					flex-direction: column;
-					width: 25%;
+					width: 40%;
+					max-width: 600px;
+				}
+			}
+			.covid-vacine-list--info-more {
+				display: flex;
+				justify-content: flex-start;
+				font-size: 14px;
+				margin: 24px 0 0 0;
+				.covid-vacine-list--info__column {
+					display: flex;
+					flex-direction: column;
+					width: 30%;
+					max-width: 600px;
 				}
 			}
 		}

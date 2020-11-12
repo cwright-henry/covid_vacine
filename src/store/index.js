@@ -13,7 +13,10 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		setVaccines(state, vaccines) {
-			state.vaccines = vaccines.sort(objectSorter('stage', 'asc', 'updated', 'asc'));
+			state.vaccines = vaccines.map(item => {
+				item.showDetails = false;
+				return item;
+			}).sort(objectSorter('stage', 'asc', 'updated', 'asc'));
 			state.stages = vaccines.reduce((acc, { stage }) => {
 				acc[stage] = (acc[stage] || 0) + 1;
 				return acc;

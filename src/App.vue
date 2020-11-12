@@ -1,6 +1,7 @@
 <template>
 	<v-app>
-		<AppBar/>
+		<AppBar />
+		<Navigation />
 		<v-main>
 			<v-container fluid>
 				<div class="covid-vacine-perspective">
@@ -28,6 +29,7 @@
 import { load } from "@/services/Api";
 import EventBus from "@/events";
 import AppBar from "@/views/appbar/AppBar";
+import Navigation from "@/views/navigation/Navigation";
 
 const VACINE_API = "/covid/api/covid-vaccine-data";
 
@@ -44,6 +46,7 @@ export default {
 	},
 	components: {
 		AppBar,
+		Navigation,
 	},
 	mounted() {
 		EventBus.$on("onError", (error) => {
@@ -66,7 +69,7 @@ export default {
 html,
 body {
 	min-height: 100%;
-	scroll-behavior: auto;
+	scroll-behavior: smooth;
 	background-color: #121212;
 }
 ul {

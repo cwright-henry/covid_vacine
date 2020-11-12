@@ -108,7 +108,7 @@ export default {
 	border-radius: 4px;
 	height: 8px;
 	margin: 32px 0 8px 0;
-	width: 750px;
+	width: 50%;
 	span {
 		background-color: #ffffff;
 		display: inline-block;
