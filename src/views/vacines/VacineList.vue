@@ -204,7 +204,7 @@ export default {
 			return phaseTypes[type].name;
 		},
 		getPhaseTypeDescription(type) {
-			return phaseTypes[type].description;
+			return phaseTypes[type] ?  phaseTypes[type].description : type
 		},
 		loadMore() {
 			this.scrollAmount += SCROLL_AMOUNT;

@@ -22,10 +22,10 @@ const incEntry = (entry, stage) => {
 		case "stage-3":
 			entry.phase3 += 1;
 			break;
-		case "stage-4":
+		case "stage-rr":
 			entry.approved += 1;
 			break;
-		case "stage-5":
+		case "stage-4":
 			entry.phase4 += 1;
 			break;
 	}
@@ -68,8 +68,8 @@ export const createPhaseTree = (vaccines) => {
 	}
 
 	const root = createBranch("Phases", phases.total);
-	root.children.push(createLeaf('Phase IV', phases.phase4, { type: 'stage', stages: ['stage-5'] }));
-	root.children.push(createLeaf('Approved', phases.approved, { type: 'stage', stages: ['stage-4'] }));
+	root.children.push(createLeaf('Phase IV', phases.phase4, { type: 'stage', stages: ['stage-4'] }));
+	root.children.push(createLeaf('Regulatory Review', phases.approved, { type: 'stage', stages: ['stage-rr'] }));
 	root.children.push(createLeaf('Phase III', phases.phase3, { type: 'stage', stages: ['stage-2half3', 'stage-3'] }))
 	root.children.push(createLeaf('Phase II', phases.phase2, { type: 'stage', stages: ['stage-1half2', 'stage-2'] }));
 	root.children.push(createLeaf('Phase I', phases.phase1, { type: 'stage', stages: ['stage-1'] }));
@@ -107,8 +107,8 @@ export const createTypeTree = (vaccines) => {
 
 	for (const vaccineType of types) {
 		const branch = createBranch(vaccineType.name, vaccineType.total, { type: 'type', vaccine: vaccineType.type });
-		branch.children.push(createLeaf('Phase IV', vaccineType.phase4, { type: 'type', vaccine: vaccineType.type, stages: ['stage-5'] }));
-		branch.children.push(createLeaf('Approved', vaccineType.approved, { type: 'type', vaccine: vaccineType.type, stages: ['stage-4'] }));
+		branch.children.push(createLeaf('Phase IV', vaccineType.phase4, { type: 'type', vaccine: vaccineType.type, stages: ['stage-4'] }));
+		branch.children.push(createLeaf('Regulatory Review', vaccineType.approved, { type: 'type', vaccine: vaccineType.type, stages: ['stage-rr'] }));
 		branch.children.push(createLeaf('Phase III', vaccineType.phase3, { type: 'type', vaccine: vaccineType.type, stages: ['stage-2half3', 'stage-3'] }));
 		branch.children.push(createLeaf('Phase II', vaccineType.phase2, { type: 'type', vaccine: vaccineType.type, stages: ['stage-1half2', 'stage-2'] }));
 		branch.children.push(createLeaf('Phase I', vaccineType.phase1, { type: 'type', vaccine: vaccineType.type, stages: ['stage-1'] }));

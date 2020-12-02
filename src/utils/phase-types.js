@@ -23,11 +23,11 @@ export const phaseTypes = {
 		name: 'Phase III',
 		description: 'Clinical trials continue to test the safety and effectiveness of a treatment or vaccine but on a much larger scale, involving up to several thousand people.'
 	},
-	'stage-4': {
-		name: 'Approval',
+	'stage-rr': {
+		name: 'In Review',
 		description: 'After a successful Phase 3 trial, vaccine manufacturers submit an application to regulatory bodies such as the European Commission or the U.S. Food and Drug Administration (FDA). At this stage, clinical trial data is reviewed to make sure the vaccine is safe and effective.'
 	},
-	'stage-5': {
+	'stage-4': {
 		name: 'Phase IV',
 		description: 'Even after the vaccine is approved and licensed, regulatory agencies stay involved, continuing to monitor production; inspecting manufacturing facilities; and testing vaccines for potency, safety and purity.'
 	}

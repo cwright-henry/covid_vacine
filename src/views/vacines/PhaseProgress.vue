@@ -20,9 +20,9 @@ export default {
 	computed: {
 		level() {
 			switch (this.stage) {
-				case "stage-5":
+				case "stage-4":
 					return 6;
-				case "stage-6":
+				case "stage-rr":
 					return 5;
 				case "stage-3":
 					return 4;
@@ -87,12 +87,18 @@ export default {
 			}
 		},
 		getPhase5() {
-			if (this.level >= 5) {
+			if (this.level === 5) {
+				return "partial";
+			}
+			else if (this.level >= 5) {
 				return "complete";
 			}
 		},
 		getPhase6() {
-			if (this.level >= 6) {
+			if (this.level === 6) {
+				return "partial";
+			}
+			else if (this.level >= 6) {
 				return "complete";
 			}
 		},
@@ -145,7 +151,7 @@ export default {
 			left: calc(50% - 21px);
 		}
 		&:nth-child(5)::before {
-			content: "Approved";
+			content: "In Review";
 			left: calc(50% - 21px);
 		}
 		&:nth-child(6)::before {

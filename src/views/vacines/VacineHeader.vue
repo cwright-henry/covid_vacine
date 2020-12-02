@@ -27,7 +27,7 @@
 			</li>
 			<li>
 				<div class="ml-4">
-					<label>Approved</label>
+					<label>Review</label>
 					<span>{{ approved || 0 | number }}</span>
 				</div>
 			</li>
@@ -78,8 +78,8 @@ export default {
 				this.phase3 =
 					(this.stages["stage-3"] || 0) +
 					(this.stages["stage-2half3"] || 0);
-				this.approved = this.stages["stage-4"] || 0;
-				this.phase4 = this.stages["stage-5"] || 0;
+				this.approved = this.stages["stage-rr"] || 0;
+				this.phase4 = this.stages["stage-4"] || 0;
 			},
 			immediate: true,
 		},

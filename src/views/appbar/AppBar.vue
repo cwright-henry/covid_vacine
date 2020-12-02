@@ -73,6 +73,7 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
+		min-height: 48px;
 		h2 {
 			font-size: 22px;
 			font-weight: 300;
