@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { objectSorter } from "@/utils";
+import { objectSorter, phaseTypes } from "@/utils";
 
 Vue.use(Vuex);
 
@@ -15,8 +15,9 @@ export default new Vuex.Store({
 		setVaccines(state, vaccines) {
 			state.vaccines = vaccines.map(item => {
 				item.showDetails = false;
+				item.order = phaseTypes[item.stage] ? phaseTypes[item.stage].order : 999;
 				return item;
-			}).sort(objectSorter('stage', 'asc', 'updated', 'asc'));
+			}).sort(objectSorter('order', 'asc', 'updated', 'asc'));
 			state.stages = vaccines.reduce((acc, { stage }) => {
 				acc[stage] = (acc[stage] || 0) + 1;
 				return acc;

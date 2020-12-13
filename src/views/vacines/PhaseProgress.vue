@@ -20,7 +20,7 @@ export default {
 	computed: {
 		level() {
 			switch (this.stage) {
-				case "stage-4":
+				case "stage-authorized":
 					return 6;
 				case "stage-rr":
 					return 5;

@@ -79,7 +79,7 @@ export default {
 					(this.stages["stage-3"] || 0) +
 					(this.stages["stage-2half3"] || 0);
 				this.approved = this.stages["stage-rr"] || 0;
-				this.phase4 = this.stages["stage-4"] || 0;
+				this.phase4 = this.stages["stage-authorized"] || 0;
 			},
 			immediate: true,
 		},
